@@ -16,10 +16,6 @@ function bubbleSort(array){
     console.log( 'Final result -->' + array );
 }
 //  bubbleSort( [3,32,4 , 6, 1 , 9] )
- 
-// note about bubble sort --> in this case 1st iteration bubble the largest num in array then loop it again
-
-
 
 // ------------------ //
 
@@ -77,25 +73,56 @@ function recursive(n){ // this also for the trangle
 
 
 function quickSort( array ){
-
-    let sortedArray = [ ...array ]
     
-    if(sortedArray.length <= 1) return sortedArray
+    if(array.length <= 1) return array
     
-    let pivot = sortedArray[ sortedArray.length - 1 ]
+    let pivot = array[ array.length - 1 ]
     let leftArray = []
     let rightArray = []
     
-    for (let i = 0; i < sortedArray.length -1; i++) {
-        if( sortedArray[i] > pivot ) rightArray.push(sortedArray[i])
-        else if(sortedArray[i] < pivot) leftArray.push( sortedArray[i] )
+    for (let i = 0; i < array.length -1; i++) {
+        if( array[i] > pivot ) rightArray.push(array[i])
+        else if(array[i] < pivot) leftArray.push( array[i] )
     }
 
     return [ ...quickSort(leftArray)  , pivot , ...quickSort(rightArray) ]
 
-    
 }
  
-console.log( quickSort( [ 3, 32, 4, 6, 25, 1, 9 ] ) )
+// console.log( quickSort( [ 3, 32, 4, 6, 25, 1, 9 ] ) )
+
+
+// --------- merge sort ------- //
+
+ function mergeSort(array){
+
+    if( array.length <= 1 ) return array
+
+    let midPoint = Number.parseInt( array.length / 2 )
+
+    let leftArray = array.slice(0 , midPoint)
+    let rightArray = array.slice(midPoint)
+
+    return merge( mergeSort( leftArray ) , mergeSort( rightArray ) )
+
+ }
+
+ function merge( leftArray , rightArray ){
+     const results = []
+
+     while (leftArray.length && rightArray.length){
+         if( leftArray[0] <= rightArray[0] ){
+             results.push(leftArray.shift())
+         }else if( leftArray[0] > rightArray[0] ){
+            results.push(rightArray.shift())
+        }
+     }
+     return results.concat( leftArray , rightArray )
+ }
+
+ console.log( mergeSort( [ 3, 32, 4, 6, 25, 1, 9 ] ) )
+
+
+// ---------------------------- //
 
 
